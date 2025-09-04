@@ -1,47 +1,44 @@
 // Dot plot with categorical x-axis (10 fonts) + tick thumbnails + hover preview
 (async () => {
   const data = await fetch('/data/points.json').then(r => r.json());
-  // data items: { font: "Font Alpha", y: <number>, img: "/images/alpha.webp", label?: string }
+  // data: { font: "Font Name", y: <number>, img: "/images/xxx.webp", label?: string }
 
   const svg = d3.select('#svg');
   const width = 1000, height = 640;
 
-  // Extra bottom margin so thumbnails fit under the x-axis
-  const m = { top: 24, right: 24, bottom: 140, left: 60 };
+  // Extra bottom margin for thumbnails + labels
+  const m = { top: 24, right: 24, bottom: 150, left: 60 };
   const iw = width - m.left - m.right, ih = height - m.top - m.bottom;
 
-  // Categorical x by font name
+  // X = font names (categorical)
   const fonts = data.map(d => d.font);
-  const x = d3.scalePoint()
-    .domain(fonts)
-    .range([m.left, m.left + iw])
-    .padding(0.5);
+  const x = d3.scalePoint().domain(fonts).range([m.left, m.left + iw]).padding(0.5);
 
-  // Numeric y
+  // Y = numeric metric (you can change units/scale later)
   const y = d3.scaleLinear()
     .domain([0, Math.max(1, d3.max(data, d => d.y))]).nice()
     .range([m.top + ih, m.top]);
 
   // Axes
-  const gx = svg.append('g')
+  svg.append('g')
     .attr('class', 'axis')
     .attr('transform', `translate(0,${m.top + ih})`)
-    .call(d3.axisBottom(x).tickSizeOuter(0));
+    .call(d3.axisBottom(x).tickSizeOuter(0).tickFormat(() => "")); // hide tick text (we draw our own labels)
 
-  const gy = svg.append('g')
+  svg.append('g')
     .attr('class', 'axis')
     .attr('transform', `translate(${m.left},0)`)
     .call(d3.axisLeft(y).ticks(6).tickSizeOuter(0));
 
-  // Optional grid
+  // Horizontal grid
   svg.append('g')
     .attr('class', 'grid')
     .attr('transform', `translate(${m.left},0)`)
     .call(d3.axisLeft(y).ticks(6).tickSize(-iw).tickFormat(''));
 
-  // Thumbnails under each x tick
-  const thumb = 44;             // thumbnail square size in px
-  const thumbGap = 26;          // gap below axis to thumbs
+  // Thumbnails under each tick
+  const thumb = 44;
+  const thumbGap = 26;        // gap below axis to thumbs
   const thumbsY = m.top + ih + thumbGap;
 
   svg.append('g')
@@ -55,10 +52,10 @@
       .attr('x', d => (x(d.font) ?? 0) - thumb / 2)
       .attr('y', thumbsY)
       .attr('preserveAspectRatio', 'xMidYMid slice')
-      .append('title')
-        .text(d => d.font);
+    .append('title')
+      .text(d => d.font);
 
-  // Font names text under the thumbnails
+  // Font name labels under thumbnails
   svg.append('g')
     .attr('aria-label', 'x-axis labels')
     .selectAll('text')
@@ -93,7 +90,7 @@
       })
       .on('mousemove', e => {
         const W = Math.min(360, Math.floor(window.innerWidth * 0.6));
-        const H = 240;
+        const H = 260;
         const px = Math.min(e.clientX + 16, window.innerWidth - W - 12);
         const py = Math.min(e.clientY + 16, window.innerHeight - H - 12);
         tip.style('left', px + 'px').style('top', py + 'px');
