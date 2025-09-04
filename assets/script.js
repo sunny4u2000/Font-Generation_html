@@ -41,10 +41,19 @@
   const thumbGap = 26;        // gap below axis to thumbs
   const thumbsY = m.top + ih + thumbGap;
 
+  // Get unique fonts for x-axis thumbnails
+  const uniqueFonts = [...new Set(data.map(d => d.font))];
+  
+  // Create font thumbnail data using original font images
+  const fontThumbs = uniqueFonts.map(font => ({
+    font: font,
+    img: `/images/${font}-regular_a.png`
+  }));
+
   svg.append('g')
     .attr('aria-label', 'x-axis thumbnails')
     .selectAll('image')
-    .data(data, d => d.font)
+    .data(fontThumbs)
     .join('image')
       .attr('href', d => d.img)
       .attr('width', thumb)
@@ -59,7 +68,7 @@
   svg.append('g')
     .attr('aria-label', 'x-axis labels')
     .selectAll('text')
-    .data(data, d => d.font)
+    .data(fontThumbs)
     .join('text')
       .attr('x', d => x(d.font))
       .attr('y', thumbsY + thumb + 16)
