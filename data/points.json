@@ -1,0 +1,4 @@
+[
+  { "x": 1.2, "y": 3.4, "label": "A", "img": "/images/a.webp" },
+  { "x": 2.6, "y": 4.1, "label": "B", "img": "/images/b.webp" }
+]
