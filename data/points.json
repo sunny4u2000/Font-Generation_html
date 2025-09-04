@@ -1,4 +1,12 @@
 [
-  { "x": 1.2, "y": 3.4, "label": "A", "img": "/images/a.webp" },
-  { "x": 2.6, "y": 4.1, "label": "B", "img": "/images/b.webp" }
+  { "font": "Font Alpha",   "y": 3.4, "img": "/images/alpha.webp",   "label": "Alpha sample" },
+  { "font": "Font Bravo",   "y": 4.1, "img": "/images/bravo.webp",   "label": "Bravo sample" },
+  { "font": "Font Charlie", "y": 1.8, "img": "/images/charlie.webp", "label": "Charlie sample" },
+  { "font": "Font Delta",   "y": 2.9, "img": "/images/delta.webp",   "label": "Delta sample" },
+  { "font": "Font Echo",    "y": 4.8, "img": "/images/echo.webp",    "label": "Echo sample" },
+  { "font": "Font Foxtrot", "y": 2.2, "img": "/images/foxtrot.webp", "label": "Foxtrot sample" },
+  { "font": "Font Golf",    "y": 3.6, "img": "/images/golf.webp",    "label": "Golf sample" },
+  { "font": "Font Hotel",   "y": 2.5, "img": "/images/hotel.webp",   "label": "Hotel sample" },
+  { "font": "Font India",   "y": 3.1, "img": "/images/india.webp",   "label": "India sample" },
+  { "font": "Font Juliet",  "y": 4.3, "img": "/images/juliet.webp",  "label": "Juliet sample" }
 ]
