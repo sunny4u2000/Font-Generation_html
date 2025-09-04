@@ -82,6 +82,12 @@
   const tipImg = tip.append('img');
   const tipCap = tip.append('div').attr('class', 'cap');
 
+  // Add jitter to spread out dots horizontally
+  const jitterAmount = 35; // pixels of horizontal spread
+  data.forEach(d => {
+    d.jitterX = (Math.random() - 0.5) * jitterAmount;
+  });
+
   // Dots
   svg.append('g')
     .attr('aria-label', 'points')
@@ -90,7 +96,7 @@
     .join('circle')
       .attr('class', 'dot')
       .attr('r', 6)
-      .attr('cx', d => x(d.font))
+      .attr('cx', d => (x(d.font) ?? 0) + d.jitterX)
       .attr('cy', d => y(d.y))
       .on('mouseenter', (_, d) => {
         tipImg.attr('src', d.img);
