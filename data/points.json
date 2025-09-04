@@ -1,4 +1,3 @@
-cat > data/points.json <<'JSON'
 [
   { "font": "Alegreya Sans SC", "y": 1,  "img": "/images/Alegreya Sans SC-regular_a.png", "label": "Alegreya Sans SC sample" },
   { "font": "Andika",           "y": 2,  "img": "/images/Andika-regular_a.png",           "label": "Andika sample" },
@@ -11,4 +10,3 @@ cat > data/points.json <<'JSON'
   { "font": "Rubik Broken Fax", "y": 9,  "img": "/images/Rubik Broken Fax-regular_a.png", "label": "Rubik Broken Fax sample" },
   { "font": "Tangerine",        "y": 10, "img": "/images/Tangerine-regular_a.png",        "label": "Tangerine sample" }
 ]
-JSON
